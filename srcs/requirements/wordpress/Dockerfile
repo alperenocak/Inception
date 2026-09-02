@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
     php-zip \
     wget \
     curl \
+    default-mysql-client \
     && rm -rf /var/lib/apt/lists/*
 
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
