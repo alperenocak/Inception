@@ -37,6 +37,9 @@ if [ ! -f wp-login.php ]; then
         --role=author \
         --user_pass="$WP_USER_PASS" \
         --allow-root
+    chown -R www-data:www-data /var/www/wordpress
 fi
+
+mkdir -p /run/php
 
 exec /usr/sbin/php-fpm8.2 -F
