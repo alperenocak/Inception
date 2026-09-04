@@ -29,9 +29,7 @@ status:
 	$(COMPOSE) ps
 
 clean: down
-	$(COMPOSE) down --rmi all --volumes --remove-orphans
-	@sudo rm -rf $(DATA_DIR)/mariadb/*
-	@sudo rm -rf $(DATA_DIR)/wordpress/*
+	@echo "Containers stopped and removed."
 
 fclean: clean
 	@docker system prune -af
