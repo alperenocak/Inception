@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# Şifreleri secrets dosyalarından oku
+# Read passwords from secrets files
 DB_PASSWORD=$(cat /run/secrets/db_password)
 DB_ROOT_PASSWORD=$(cat /run/secrets/db_root_password)
 
@@ -13,14 +13,14 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
 fi
 
 if [ ! -d "/var/lib/mysql/${MYSQL_DATABASE}" ]; then
-    # MariaDB'yi başlat (arka planda, kurulum için)
+    # Start MariaDB in the background for setup
     mysqld_safe --skip-networking &
 
     until mysqladmin ping --silent; do
         sleep 1
     done
 
-    # Veritabanı ve kullanıcıyı oluştur
+    # Create database and user
     mysql -u root <<EOF
 ALTER USER 'root'@'localhost' IDENTIFIED BY '${DB_ROOT_PASSWORD}';
 CREATE DATABASE IF NOT EXISTS \`${MYSQL_DATABASE}\`;
@@ -29,9 +29,9 @@ GRANT ALL PRIVILEGES ON \`${MYSQL_DATABASE}\`.* TO '${MYSQL_USER}'@'%';
 FLUSH PRIVILEGES;
 EOF
 
-    # Arka plandaki mysqld'yi kapat
+    # Shut down the background mysqld
     mysqladmin -u root -p"${DB_ROOT_PASSWORD}" shutdown
 fi
 
-# Asıl prosesi başlat (PID 1)
+# Start the main process (PID 1)
 exec mysqld_safe

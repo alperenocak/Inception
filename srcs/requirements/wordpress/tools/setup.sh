@@ -7,7 +7,7 @@ WP_ADMIN_PASS=$(cat /run/secrets/wp_admin_password)
 WP_USER_PASS=$(cat /run/secrets/wp_user_password)
 
 until mysqladmin ping -h mariadb -u"$MYSQL_USER" -p"$DB_PASS" --silent; do
-    echo "MariaDB bekleniyor..."
+    echo "Waiting for MariaDB..."
     sleep 2
 done
 
