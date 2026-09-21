@@ -252,21 +252,18 @@ Inception/
     └── requirements/
         ├── mariadb/
         │   ├── Dockerfile
-        │   ├── .dockerignore
         │   ├── conf/
         │   │   └── 50-server.cnf     # MariaDB configuration
         │   └── tools/
         │       └── init.sh           # Database initialization script
         ├── wordpress/
         │   ├── Dockerfile
-        │   ├── .dockerignore
         │   ├── conf/
         │   │   └── www.conf          # PHP-FPM pool configuration
         │   └── tools/
         │       └── setup.sh          # WordPress setup script
         └── nginx/
             ├── Dockerfile
-            ├── .dockerignore
             └── conf/
                 └── nginx.conf        # NGINX site configuration
 ```
